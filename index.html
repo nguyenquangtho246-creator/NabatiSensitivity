@@ -10,7 +10,7 @@
 
 <style>
 :root {
-  --card: rgba(0, 0, 0, 0.75); /* Nền đen trong suốt để nổi bật ảnh nền */
+  --card: rgba(0, 0, 0, 0.75);
   --text: #fff;
   --accent: #00c6ff;
   --accent2: #ff7b00;
@@ -26,7 +26,6 @@
 }
 
 body {
-  /* Thiết lập ảnh nền chuẩn */
   background-image: url('https://files.catbox.moe/k481l5.jpg');
   background-size: cover;
   background-position: center;
@@ -35,12 +34,9 @@ body {
   color: var(--text);
   overflow-x: hidden;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Chữ nghệ thuật 2 bên - Cân bằng đối xứng */
+/* Chữ nghệ thuật 2 bên */
 .side-text {
   position: fixed;
   top: 50%;
@@ -57,17 +53,22 @@ body {
 .left-side { left: 5%; text-align: left; }
 .right-side { right: 5%; text-align: right; }
 
-@media (max-width: 1100px) { 
-    .side-text { display: none; } 
-}
+@media (max-width: 1100px) { .side-text { display: none; } }
 
-/* UI Card chính */
+/* UI Container */
 .center {
-  width: 100%;
-  max-width: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   padding: 20px;
   position: relative;
   z-index: 1;
+}
+
+.card-container {
+  width: 100%;
+  max-width: 550px;
 }
 
 .card {
@@ -76,8 +77,9 @@ body {
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px); /* Hiệu ứng mờ kính cực đẹp */
+  backdrop-filter: blur(10px);
   margin-bottom: 20px;
+  position: relative;
 }
 
 .tabs { display: flex; gap: 10px; margin-bottom: 15px; }
@@ -118,7 +120,6 @@ button {
   text-transform: uppercase;
   transition: 0.3s;
 }
-button:hover { transform: scale(1.02); opacity: 0.9; }
 
 /* Dropdown */
 .dropdown { margin-top: 10px; }
@@ -131,31 +132,17 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
   justify-content: space-between;
   align-items: center;
 }
-.dropbtn::after { content: "▼"; font-size: 12px; }
+.dropbtn::after { content: "▼"; font-size: 12px; transition: 0.3s; }
+.dropbtn.open::after { content: "▲"; }
 .menu { display: none; background: #1a1a1a; border-radius: 10px; margin-top: 5px; overflow: hidden; }
 .menu div { padding: 12px; cursor: pointer; border-bottom: 1px solid #333; }
 .menu div:hover { background: var(--accent); }
 .show { display: block; }
 
-/* Kết quả */
-.res-head { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 15px;}
-.btn-rs { width: auto; margin-top: 0; padding: 6px 15px; font-size: 12px; background: #444; }
-
-.slider { height: 8px; background: #333; border-radius: 10px; margin: 8px 0 15px; overflow: hidden; }
-.bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
-
-/* Lock & Toast */
-.lock {
-  position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
-  display: flex; justify-content: center; align-items: center;
-  border-radius: 20px; top: 0; left: 0; z-index: 5;
-}
-#toast {
-  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-  background: var(--accent2); color: white; padding: 12px 25px;
-  border-radius: 30px; display: none; z-index: 1000;
-  box-shadow: 0 0 20px rgba(255,123,0,0.5);
-}
+/* Result Style */
+.res-head { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 15px; gap: 10px; }
+.res-btns { display: flex; align-items: center; gap: 8px; }
+.btn-rs { width: auto; margin-top: 0; padding: 6px 15px; font-size: 12px; background: #444; text-transform: none;}
 
 .loop-toggle {
   width: 35px; height: 35px; border-radius: 8px;
@@ -168,6 +155,28 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
   border-radius: 50%; border-top-color: transparent;
   position: relative;
 }
+.loop-icon::before {
+  content: ""; position: absolute; top: -4px; right: -4px;
+  border: 4px solid transparent; border-bottom-color: white;
+  transform: rotate(45deg);
+}
+
+.slider { height: 8px; background: #333; border-radius: 10px; margin: 8px 0 15px; overflow: hidden; }
+.bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+/* Toast & Lock */
+#toast {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--accent2); color: white; padding: 12px 25px;
+  border-radius: 30px; display: none; z-index: 1000;
+  box-shadow: 0 0 20px rgba(255,123,0,0.5);
+}
+
+.lock {
+  position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+  display: flex; justify-content: center; align-items: center;
+  border-radius: 20px; top: 0; left: 0; z-index: 5;
+}
 </style>
 </head>
 
@@ -179,6 +188,8 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
 <div class="side-text right-side">Nabati 🧀<br>Live<br>OB 53</div>
 
 <div class="center">
+  <div class="card-container">
+
     <div id="keyBox" class="card">
       <h3 style="text-align:center; margin-bottom:15px; font-size:16px;">XÁC MINH NGƯỜI DÙNG</h3>
       <input id="keyInput" type="password" placeholder="Nhập Key để tiếp tục...">
@@ -188,7 +199,7 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
     <div id="mainApp" style="display:none">
       <div class="tabs">
         <div class="tab active" onclick="_sw('ff')">Free Fire TH</div>
-        <div class="tab" onclick="_sw('max')">FreeFire MAX</div>
+        <div class="tab" onclick="_sw('max')">Free Fire MAX</div>
       </div>
 
       <div id="ff">
@@ -210,7 +221,7 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
         <div class="card" style="position:relative">
           <div id="lock" class="lock">
             <div style="text-align:center">
-              <p style="margin-bottom:15px">100k Tim Và 20 Xu</p>
+              <p style="margin-bottom:15px">Mở khóa 100k Tim Và 20 Xu</p>
               <button onclick="_u()" style="width: auto; padding: 10px 30px;">Mở 🔓</button>
             </div>
           </div>
@@ -226,33 +237,36 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
           <div id="out2"></div>
         </div>
       </div>
+      
     </div>
+  </div>
 </div>
 
 <script>
 (function(){
+    // Key gốc: NABATI_DEP_TRAI (Đã đồng bộ theo bản Nabati)
     const _k = atob("TkFCQVRJX0RFUF9UUkFJ");
     let _a="", _b="", _c=0, _d=0, _autoReset = false;
 
-    // Chặn phím F12, Ctrl+U
+    // Block keys
     document.addEventListener("keydown", e => {
       if(e.key==="F12" || (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) || (e.ctrlKey && e.key==="u")) e.preventDefault();
     });
 
-    if(localStorage.getItem("dbao_key") === _k){
+    if(localStorage.getItem("nabati_key") === _k){
       keyBox.style.display="none"; mainApp.style.display="block";
     }
 
     window._checkKey = () => {
       if(document.getElementById("keyInput").value.trim() === _k){
-        localStorage.setItem("dbao_key", _k);
+        localStorage.setItem("nabati_key", _k);
         keyBox.style.display="none"; mainApp.style.display="block";
       } else alert("Sai Key!");
     };
 
     window._sw = t => {
-      document.getElementById('ff').style.display = t === 'ff' ? 'block' : 'none';
-      document.getElementById('max').style.display = t === 'max' ? 'block' : 'none';
+      ff.style.display = t === 'ff' ? 'block' : 'none';
+      max.style.display = t === 'max' ? 'block' : 'none';
       document.querySelectorAll(".tab").forEach((e, i) => {
         e.classList.toggle("active", (t === 'ff' && i === 0) || (t === 'max' && i === 1));
       });
@@ -260,12 +274,13 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
 
     window._tg = (id, btn) => {
       document.getElementById(id).classList.toggle("show");
+      btn.classList.toggle("open");
     };
 
     window._os = (v, n) => {
-      if(n===1) { _a=v; o1.innerText=v; m1.classList.remove("show"); }
-      else { _b=v; o2.innerText=v; m2.classList.remove("show"); }
-      let input = n===1 ? d1 : d2;
+      let input = n === 1 ? d1 : d2;
+      if(n===1) { _a=v; o1.innerText=v; o1.classList.remove("open"); m1.classList.remove("show"); }
+      else { _b=v; o2.innerText=v; o2.classList.remove("open"); m2.classList.remove("show"); }
       input.value = (v === "IOS") ? "iPhone " : "";
       input.focus();
     };
@@ -275,7 +290,7 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
       let os = n === 1 ? _a : _b;
       if(os !== "Android") return;
       let val = input.value.toLowerCase();
-      const map = { "sa": "Samsung ", "op": "Oppo ", "re": "Redmi ", "rea": "Realme ", "vi": "Vivo " };
+      const map = { "sa": "Samsung ", "op": "Oppo ", "re": "Redmi ", "rea": "Realme ", "vi": "Vivo ", "vs": "Vsmart " };
       for (let key in map) { if (val === key) { input.value = map[key]; break; } }
     };
 
@@ -292,22 +307,44 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
       let dev = (t===1) ? d1.value : d2.value;
       let out = (t===1) ? out1 : out2;
 
-      if(!o || !dev || dev.length < 3) { alert("Vui lòng nhập đầy đủ!"); return; }
+      if(!o || !dev || dev.length < 3) { alert("Thiếu thông tin!"); return; }
 
-      let dt = {
-        l: _r(160,200), r: _r(100,180), x2: _r(100,170), 
-        x4: _r(150,190), s: _r(150,200), c: _r(0,50)
-      };
+      let dt = o==="Android"
+        ?{l:_r(160,200),r:_r(100,180),x2:_r(100,170),x4:_r(150,190),s:_r(150,200),c:_r(0,50)}
+        :{l:_r(145,200),r:_r(120,180),x2:_r(150,200),x4:_r(140,200),s:_r(150,200),c:_r(0,70)};
+
+      let fireSize = o==="Android" ? (dt.l > 150 ? _r(45,65) : _r(40,55)) : (dt.l > 160 ? _r(45,70) : _r(35,50));
+      let dpi = o==="Android" ? _r(410,500) : "Mua DPI Nabati Để Tốt Hơn";
+
+      let fps = "FPS Trung Bình";
+      let avgSens = (dt.l + dt.r + dt.x2 + dt.x4) / 4;
+      if(avgSens > 175) fps = "FPS Cao (Siêu Mượt)";
+      if(avgSens < 140) fps = "FPS Ổn Định (90 FPS)";
+
       const nm = {l:"Nhìn Xung Quanh", r:"Ống Ngắm Hồng Tâm", x2:"Ống Ngắm X2", x4:"Ống Ngắm X4", s:"Ống Ngắm Súng Ngắm", c:"Camera Nhìn Xung Quanh"};
 
-      let h = `<div class="res-head"><h3>${dev}</h3><button class="btn-rs" onclick="_rs(${t})">Làm mới</button></div>`;
+      let h = `<div class="res-head">
+                  <h3>${dev}</h3>
+                  <div class="res-btns">
+                    <div class="loop-toggle ${_autoReset?'on':''}" onclick="_toggleLoop(this)" title="Tự động làm mới">
+                      <div class="loop-icon"></div>
+                    </div>
+                    <button class="btn-rs" onclick="_rs(${t})">Tạo Lại</button>
+                  </div>
+               </div>`;
       for(let k in dt){
-        h += `<p style="font-size:12px">${nm[k]}: ${dt[k]}</p><div class="slider"><div class="bar" style="width:${dt[k]/2}%"></div></div>`;
+        h += `<p style="font-size:12px; margin-bottom:2px">${nm[k]}: ${dt[k]}</p><div class="slider"><div class="bar" style="width:${dt[k]/2}%"></div></div>`;
       }
-      h += `<p style="text-align:center; color:var(--accent2)"><b>Nút bắn:</b> ${_r(40,60)}% | <b>DPI:</b> ${o==="Android"?_r(400,600):"400-600"}</p>`;
+      h += `<p style="text-align:center; color:var(--accent2); font-size:14px"><b>Nút bắn:</b> ${fireSize}% | <b>DPI:</b> ${dpi}</p>`;
+      h += `<p style="text-align:center; margin-top:5px; color:var(--accent); font-size:13px"><b>Đề xuất:</b> ${fps}</p>`;
       
       out.innerHTML = h;
       t===1 ? _c=1 : _d=1;
+    };
+
+    window._toggleLoop = (el) => {
+      _autoReset = !_autoReset;
+      el.classList.toggle("on");
     };
 
     window._rs = t => {
@@ -315,7 +352,7 @@ button:hover { transform: scale(1.02); opacity: 0.9; }
       else { out2.innerHTML=""; _d=0; }
     };
 
-    window._u = () => { if(confirm("Xác nhận mở khóa FF MAX?")) lock.style.display="none"; };
+    window._u = () => { if(confirm("Mở Khóa Độ Nhạy Nabati MAX?")) lock.style.display="none"; };
 })();
 </script>
 </body>
