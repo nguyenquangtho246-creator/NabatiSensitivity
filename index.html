@@ -12,7 +12,7 @@
 <style>
 :root{
   --bg:#000;
-  --card:#111;
+  --card:rgba(17, 17, 17, 0.9); /* Làm trong suốt nhẹ để thấy nền */
   --text:#fff;
   --accent:#00c6ff;
   --accent2:#ff7b00;
@@ -21,7 +21,7 @@
 }
 .light{
   --bg:#f2f2f2;
-  --card:#fff;
+  --card:rgba(255, 255, 255, 0.9);
   --text:#111;
 }
 
@@ -29,9 +29,15 @@ body,.card,.tab,input,button{transition:all .3s ease;}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif;}
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
+  /* Thay background bằng link ảnh của bạn */
+  background: url('https://files.catbox.moe/k481l5.jpg') no-view-strategy;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 /* Animation */
@@ -44,25 +50,7 @@ body{
   z-index: -1;
 }
 
-/* BACKGROUND OLD */
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:
-    radial-gradient(circle,#00c6ff22 1px,transparent 1px),
-    radial-gradient(circle,#ff7b0022 1px,transparent 1px);
-  background-size:50px 50px;
-  animation:move 40s linear infinite;
-  z-index: -2;
-}
-@keyframes move{
-  0%{transform:translate(0,0);}
-  100%{transform:translate(-200px,-200px);}
-}
-
-/* title 2 side */
+/* Title 2 side */
 .side-text {
   position: fixed;
   top: 50%;
@@ -94,11 +82,12 @@ body::before{
   background:var(--card); padding:25px; border-radius:15px;
   width:100%; max-width:520px; box-shadow:0 0 20px rgba(0,0,0,0.5);
   position: relative;
+  backdrop-filter: blur(5px); /* Thêm hiệu ứng mờ nhẹ cho card đẹp hơn */
 }
 .tabs{display:flex;gap:10px;margin-bottom:15px;}
 .tab{
   flex:1; text-align:center; padding:10px; background:#222;
-  border-radius:10px; cursor:pointer;
+  border-radius:10px; cursor:pointer; color: #fff;
 }
 .active{background:var(--accent);}
 input{
@@ -116,11 +105,11 @@ button{
 .dropdown{margin-top:10px;}
 .dropbtn{
     padding:10px; background:#222; border-radius:10px; cursor:pointer;
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: center; color: #fff;
 }
 .dropbtn::after { content: "▼"; font-size: 12px; transition: 0.3s; }
 .dropbtn.open::after { content: "▲"; }
-.menu{display:none;background:#222;border-radius:10px;}
+.menu{display:none;background:#222;border-radius:10px; color: #fff;}
 .menu div{padding:10px;cursor:pointer;}
 .menu div:hover{background:var(--accent);}
 .show{display:block;}
@@ -241,7 +230,6 @@ const _k=atob("TkFCQVRJX0RFUF9UUkFJ");
 let _a="", _b="", _c=0, _d=0;
 let _autoReset = false;
 
-// Block keys
 document.addEventListener("keydown",e=>{
   if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["I","J","C"].includes(e.key))||(e.ctrlKey&&e.key==="u")) e.preventDefault();
 });
@@ -283,7 +271,6 @@ window._os=(v,n)=>{
   input.focus();
 };
 
-// Chức năng Auto-fill Android
 window._auto = (n) => {
   let input = n === 1 ? d1 : d2;
   let os = n === 1 ? _a : _b;
@@ -334,7 +321,6 @@ window._g=t=>{
   let dpiVal = _r(370,500);
   let dpi = o==="Android" ? (dt.l >= 180 && fireSize >= 55 ? _r(370,450) : dpiVal) : "Mua File Nabati Để Tốt Hơn";
 
-  // Logic FPS
   let fps = "FPS Trung Bình";
   let avgSens = (dt.l + dt.r + dt.x2 + dt.x4) / 4;
   if(avgSens > 175 && fireSize > 55) fps = "FPS Thấp (Nếu Thiết Bị Lag)";
@@ -374,7 +360,6 @@ window._rs=t=>{
 window._u=()=>{ if(confirm("Mở Khóa Độ Nhạy FF MAX?"))lock.style.display="none"; };
 window._t=()=>document.body.classList.toggle("light");
 
-// Particles Config
 particlesJS("particles-js", {
   "particles": {
     "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
