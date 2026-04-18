@@ -6,31 +6,28 @@
 <title>Nabati Sensitivity | OB 53</title>
 
 <link rel="icon" type="image/webp" href="https://files.catbox.moe/j5ejn5.webp">
-
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg:#000;
-  --card:rgba(17, 17, 17, 0.9); /* Làm trong suốt nhẹ để thấy nền */
-  --text:#fff;
-  --accent:#00c6ff;
-  --accent2:#ff7b00;
-  --gray:#555;
-  --green:#2ecc71;
-}
-.light{
-  --bg:#f2f2f2;
-  --card:rgba(255, 255, 255, 0.9);
-  --text:#111;
+:root {
+  --card: rgba(0, 0, 0, 0.75); /* Nền đen trong suốt để nổi bật ảnh nền */
+  --text: #fff;
+  --accent: #00c6ff;
+  --accent2: #ff7b00;
+  --gray: #555;
+  --green: #2ecc71;
 }
 
-body,.card,.tab,input,button{transition:all .3s ease;}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif;}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+}
 
-body{
-  /* Thay background bằng link ảnh của bạn */
-  background: url('https://files.catbox.moe/k481l5.jpg') no-view-strategy;
+body {
+  /* Thiết lập ảnh nền chuẩn */
+  background-image: url('https://files.catbox.moe/k481l5.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -38,19 +35,12 @@ body{
   color: var(--text);
   overflow-x: hidden;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Animation */
-#particles-js {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-/* Title 2 side */
+/* Chữ nghệ thuật 2 bên - Cân bằng đối xứng */
 .side-text {
   position: fixed;
   top: 50%;
@@ -62,68 +52,115 @@ body{
   z-index: 0;
   pointer-events: none;
   filter: drop-shadow(0 0 10px rgba(0, 198, 255, 0.5));
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }
-.left-side { left: 40px; text-align: left; }
-.right-side { right: 40px; text-align: right; }
+.left-side { left: 5%; text-align: left; }
+.right-side { right: 5%; text-align: right; }
 
-@media (max-width: 1050px) { .side-text { display: none; } }
+@media (max-width: 1100px) { 
+    .side-text { display: none; } 
+}
 
-/* UI */
-.toggle{
-  position:fixed; top:10px; right:10px; padding:8px 12px;
-  border-radius:10px; background:linear-gradient(45deg,var(--accent),var(--accent2));
-  cursor:pointer; z-index:10;
-}
-.center{
-  display:flex; justify-content:center; align-items:center;
-  min-height:100vh; padding:20px; position:relative; z-index:1;
-}
-.card{
-  background:var(--card); padding:25px; border-radius:15px;
-  width:100%; max-width:520px; box-shadow:0 0 20px rgba(0,0,0,0.5);
+/* UI Card chính */
+.center {
+  width: 100%;
+  max-width: 550px;
+  padding: 20px;
   position: relative;
-  backdrop-filter: blur(5px); /* Thêm hiệu ứng mờ nhẹ cho card đẹp hơn */
+  z-index: 1;
 }
-.tabs{display:flex;gap:10px;margin-bottom:15px;}
-.tab{
-  flex:1; text-align:center; padding:10px; background:#222;
-  border-radius:10px; cursor:pointer; color: #fff;
+
+.card {
+  background: var(--card);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px); /* Hiệu ứng mờ kính cực đẹp */
+  margin-bottom: 20px;
 }
-.active{background:var(--accent);}
-input{
-  width:100%; padding:10px; margin-top:10px; border-radius:10px;
-  border:none; background:#222; color:white; outline: none;
+
+.tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+  font-size: 14px;
 }
-button{
-  width:100%; margin-top:10px; padding:10px; border:none;
-  border-radius:10px; cursor:pointer;
-  background:linear-gradient(45deg,var(--accent),var(--accent2));
-  color:white; font-weight: bold;
+.tab.active { background: var(--accent); box-shadow: 0 0 15px var(--accent); }
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  outline: none;
 }
+
+button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(45deg, var(--accent), var(--accent2));
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+button:hover { transform: scale(1.02); opacity: 0.9; }
 
 /* Dropdown */
-.dropdown{margin-top:10px;}
-.dropbtn{
-    padding:10px; background:#222; border-radius:10px; cursor:pointer;
-    display: flex; justify-content: space-between; align-items: center; color: #fff;
+.dropdown { margin-top: 10px; }
+.dropbtn {
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.dropbtn::after { content: "▼"; font-size: 12px; transition: 0.3s; }
-.dropbtn.open::after { content: "▲"; }
-.menu{display:none;background:#222;border-radius:10px; color: #fff;}
-.menu div{padding:10px;cursor:pointer;}
-.menu div:hover{background:var(--accent);}
-.show{display:block;}
+.dropbtn::after { content: "▼"; font-size: 12px; }
+.menu { display: none; background: #1a1a1a; border-radius: 10px; margin-top: 5px; overflow: hidden; }
+.menu div { padding: 12px; cursor: pointer; border-bottom: 1px solid #333; }
+.menu div:hover { background: var(--accent); }
+.show { display: block; }
 
-/* Result Header & Buttons */
-.res-head { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; gap: 5px;}
-.res-btns { display: flex; align-items: center; gap: 8px; }
-.btn-rs { width: auto; margin-top: 0; padding: 5px 15px; font-size: 12px; background: #333; }
+/* Kết quả */
+.res-head { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; margin-bottom: 15px;}
+.btn-rs { width: auto; margin-top: 0; padding: 6px 15px; font-size: 12px; background: #444; }
 
-/* Custom Loop Icon (CSS Only) */
+.slider { height: 8px; background: #333; border-radius: 10px; margin: 8px 0 15px; overflow: hidden; }
+.bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+/* Lock & Toast */
+.lock {
+  position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+  display: flex; justify-content: center; align-items: center;
+  border-radius: 20px; top: 0; left: 0; z-index: 5;
+}
+#toast {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--accent2); color: white; padding: 12px 25px;
+  border-radius: 30px; display: none; z-index: 1000;
+  box-shadow: 0 0 20px rgba(255,123,0,0.5);
+}
+
 .loop-toggle {
-  width: 32px; height: 32px; border-radius: 8px;
+  width: 35px; height: 35px; border-radius: 8px;
   background: var(--gray); display: flex; align-items: center;
-  justify-content: center; cursor: pointer; position: relative;
+  justify-content: center; cursor: pointer;
 }
 .loop-toggle.on { background: var(--green); }
 .loop-icon {
@@ -131,248 +168,155 @@ button{
   border-radius: 50%; border-top-color: transparent;
   position: relative;
 }
-.loop-icon::before {
-  content: ""; position: absolute; top: -4px; right: -4px;
-  border: 4px solid transparent; border-bottom-color: white;
-  transform: rotate(45deg);
-}
-
-/* slider */
-.slider{height:8px;background:#333;border-radius:10px;margin:5px 0 12px;}
-.bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));}
-
-/* Toast */
-#toast {
-  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-  background: var(--accent2); color: white; padding: 10px 20px;
-  border-radius: 20px; display: none; z-index: 1000;
-  box-shadow: 0 0 15px rgba(255,123,0,0.4);
-}
-
-/* lock */
-.lock{
-  position:absolute; width:100%; height:100%; background:rgba(0,0,0,0.8);
-  display:flex; justify-content:center; align-items:center;
-  border-radius:15px; top:0; left:0; z-index:2;
-}
 </style>
 </head>
 
 <body oncontextmenu="return false">
 
-<div id="particles-js"></div>
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
 <div id="toast">Hãy Bấm Tạo Lại Để Tạo Công Thức Độ Nhạy Mới</div>
 
 <div class="side-text left-side">Nabati 🧀<br>Sensitivity<br>VIP</div>
-<div class="side-text right-side">Nabati 🧀<br>Live</div>
-
-<div class="toggle" onclick="_t()">🌙|☀️</div>
+<div class="side-text right-side">Nabati 🧀<br>Live<br>OB 53</div>
 
 <div class="center">
-<div style="width:100%;max-width:550px">
-
-<div id="keyBox" class="card" style="margin-bottom:15px">
-  <h3 style="text-align:center">Nhập KEY để sử dụng (Key sẽ được reset lại mỗi 24h)</h3>
-  <input id="keyInput" type="password" placeholder="Nhập key...">
-  <button onclick="_checkKey()">Xác nhận 🔑</button>
-</div>
-
-<div id="mainApp" style="display:none">
-  <div class="tabs">
-    <div class="tab active" onclick="_sw('ff')">Free Fire Thường</div>
-    <div class="tab" onclick="_sw('max')">Free Fire MAX</div>
-  </div>
-
-  <div id="ff">
-    <div class="card">
-      <div class="dropdown">
-        <div class="dropbtn" onclick="_tg('m1', this)" id="o1">Chọn hệ điều hành</div>
-        <div class="menu" id="m1">
-          <div onclick="_os('Android',1)">Android</div>
-          <div onclick="_os('IOS',1)">IOS</div>
-        </div>
-      </div>
-      <input id="d1" placeholder="Đầy Đủ Hãng Máy Và Tên Máy" oninput="_auto(1)">
-      <button onclick="_g(1)">Tạo Công Thức🎯</button>
-      <div id="out1"></div>
+    <div id="keyBox" class="card">
+      <h3 style="text-align:center; margin-bottom:15px; font-size:16px;">XÁC MINH NGƯỜI DÙNG</h3>
+      <input id="keyInput" type="password" placeholder="Nhập Key để tiếp tục...">
+      <button onclick="_checkKey()">Xác nhận 🔑</button>
     </div>
-  </div>
 
-  <div id="max" style="display:none">
-    <div class="card" style="position:relative">
-      <div id="lock" class="lock">
-        <div>
-          <p style="text-align:center;margin-bottom:10px">Mở khóa 100k tim và 20 Xu</p>
-          <button onclick="_u()">Mở 🔓️</button>
+    <div id="mainApp" style="display:none">
+      <div class="tabs">
+        <div class="tab active" onclick="_sw('ff')">Free Fire</div>
+        <div class="tab" onclick="_sw('max')">FF MAX</div>
+      </div>
+
+      <div id="ff">
+        <div class="card">
+          <div class="dropdown">
+            <div class="dropbtn" onclick="_tg('m1', this)" id="o1">Chọn hệ điều hành</div>
+            <div class="menu" id="m1">
+              <div onclick="_os('Android',1)">Android</div>
+              <div onclick="_os('IOS',1)">IOS</div>
+            </div>
+          </div>
+          <input id="d1" placeholder="Nhập tên máy (VD: Oppo A94)" oninput="_auto(1)">
+          <button onclick="_g(1)">Tạo Công Thức 🎯</button>
+          <div id="out1"></div>
         </div>
       </div>
-      <div class="dropdown">
-        <div class="dropbtn" onclick="_tg('m2', this)" id="o2">Chọn Hệ Điều Hành</div>
-        <div class="menu" id="m2">
-          <div onclick="_os('Android',2)">Android</div>
-          <div onclick="_os('IOS',2)">IOS</div>
+
+      <div id="max" style="display:none">
+        <div class="card" style="position:relative">
+          <div id="lock" class="lock">
+            <div style="text-align:center">
+              <p style="margin-bottom:15px">Tính năng FF MAX đang khóa</p>
+              <button onclick="_u()" style="width: auto; padding: 10px 30px;">Mở 🔓</button>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropbtn" onclick="_tg('m2', this)" id="o2">Chọn Hệ Điều Hành</div>
+            <div class="menu" id="m2">
+              <div onclick="_os('Android',2)">Android</div>
+              <div onclick="_os('IOS',2)">IOS</div>
+            </div>
+          </div>
+          <input id="d2" placeholder="Nhập tên máy..." oninput="_auto(2)">
+          <button onclick="_g(2)">Tạo Công Thức 🎯</button>
+          <div id="out2"></div>
         </div>
       </div>
-      <input id="d2" placeholder="Đầy Đủ Hãng Máy Và Tên Máy" oninput="_auto(2)">
-      <button onclick="_g(2)">Tạo Công Thức🎯</button>
-      <div id="out2"></div>
     </div>
-  </div>
-</div>
-</div>
 </div>
 
 <script>
 (function(){
-const _k=atob("TkFCQVRJX0RFUF9UUkFJ");
-let _a="", _b="", _c=0, _d=0;
-let _autoReset = false;
+    // Key gốc: NABATI_DEP_TRAI
+    const _k = atob("TkFCQVRJX0RFUF9UUkFJ");
+    let _a="", _b="", _c=0, _d=0, _autoReset = false;
 
-document.addEventListener("keydown",e=>{
-  if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["I","J","C"].includes(e.key))||(e.ctrlKey&&e.key==="u")) e.preventDefault();
-});
+    // Chặn phím F12, Ctrl+U
+    document.addEventListener("keydown", e => {
+      if(e.key==="F12" || (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) || (e.ctrlKey && e.key==="u")) e.preventDefault();
+    });
 
-if(localStorage.getItem("dbao_key")===_k){
-  window.addEventListener("load",()=>{
-    keyBox.style.display="none"; mainApp.style.display="block";
-  });
-}
-
-window._checkKey=()=>{
-  let k=document.getElementById("keyInput").value.trim();
-  if(k===_k){
-    localStorage.setItem("dbao_key",k); keyBox.style.display="none"; mainApp.style.display="block";
-  }else alert("Sai Key!");
-};
-
-window._sw=t=>{
-  ff.style.display="none"; max.style.display="none";
-  document.querySelectorAll(".tab").forEach(e=>e.classList.remove("active"));
-  if(t==="ff"){ ff.style.display="block"; document.querySelectorAll(".tab")[0].classList.add("active"); }
-  else { max.style.display="block"; document.querySelectorAll(".tab")[1].classList.add("active"); }
-};
-
-window._tg=(id, btn)=>{
-  document.getElementById(id).classList.toggle("show");
-  btn.classList.toggle("open");
-};
-
-window._os=(v,n)=>{
-  let input = n===1 ? d1 : d2;
-  if(n===1){ 
-    _a=v; o1.innerText=v; o1.classList.remove("open"); m1.classList.remove("show");
-  }else{ 
-    _b=v; o2.innerText=v; o2.classList.remove("open"); m2.classList.remove("show");
-  }
-  if(v==="IOS") input.value = "iPhone ";
-  else input.value = "";
-  input.focus();
-};
-
-window._auto = (n) => {
-  let input = n === 1 ? d1 : d2;
-  let os = n === 1 ? _a : _b;
-  if(os !== "Android") return;
-  
-  let val = input.value.toLowerCase();
-  const map = { "sa": "Samsung ", "op": "Oppo ", "re": "Redmi ", "rea": "Realme ", "vi": "Vivo ", "vs": "Vsmart " };
-  for (let key in map) {
-    if (val === key) {
-      input.value = map[key];
-      break;
+    if(localStorage.getItem("dbao_key") === _k){
+      keyBox.style.display="none"; mainApp.style.display="block";
     }
-  }
-};
 
-const _v=(o,d)=>{
-  d=d.toLowerCase();
-  if(o==="Android")return /(samsung|oppo|xiaomi|realme|vivo|vsmart|redmi|huawei|rog)/.test(d);
-  if(o==="IOS")return /iphone/.test(d);
-  return 0;
-};
+    window._checkKey = () => {
+      if(document.getElementById("keyInput").value.trim() === _k){
+        localStorage.setItem("dbao_key", _k);
+        keyBox.style.display="none"; mainApp.style.display="block";
+      } else alert("Sai Key!");
+    };
 
-const showToast = () => {
-  const t = document.getElementById("toast");
-  t.style.display = "block";
-  setTimeout(() => { t.style.display = "none"; }, 5000);
-};
+    window._sw = t => {
+      document.getElementById('ff').style.display = t === 'ff' ? 'block' : 'none';
+      document.getElementById('max').style.display = t === 'max' ? 'block' : 'none';
+      document.querySelectorAll(".tab").forEach((e, i) => {
+        e.classList.toggle("active", (t === 'ff' && i === 0) || (t === 'max' && i === 1));
+      });
+    };
 
-const _r=(x,y)=>Math.floor(Math.random()*(y-x+1))+x;
+    window._tg = (id, btn) => {
+      document.getElementById(id).classList.toggle("show");
+    };
 
-window._g=t=>{
-  if(!_autoReset) {
-     if((t===1&&_c) || (t===2&&_d)){ showToast(); return; }
-  }
+    window._os = (v, n) => {
+      if(n===1) { _a=v; o1.innerText=v; m1.classList.remove("show"); }
+      else { _b=v; o2.innerText=v; m2.classList.remove("show"); }
+      let input = n===1 ? d1 : d2;
+      input.value = (v === "IOS") ? "iPhone " : "";
+      input.focus();
+    };
 
-  let o=t===1?_a:_b;
-  let dev=t===1?d1.value:d2.value;
-  let out=t===1?out1:out2;
+    window._auto = (n) => {
+      let input = n === 1 ? d1 : d2;
+      let os = n === 1 ? _a : _b;
+      if(os !== "Android") return;
+      let val = input.value.toLowerCase();
+      const map = { "sa": "Samsung ", "op": "Oppo ", "re": "Redmi ", "rea": "Realme ", "vi": "Vivo " };
+      for (let key in map) { if (val === key) { input.value = map[key]; break; } }
+    };
 
-  if(!o || !dev){alert("Thiếu thông tin!"); return;}
-  if(!_v(o,dev)){alert("Hệ Điều Hành không khớp!"); return;}
+    const _r = (x,y) => Math.floor(Math.random()*(y-x+1))+x;
 
-  let dt=o==="Android"
-    ?{l:_r(160,200),r:_r(100,180),x2:_r(100,170),x4:_r(150,190),s:_r(150,200),c:_r(0,50)}
-    :{l:_r(145,200),r:_r(120,180),x2:_r(150,200),x4:_r(140,200),s:_r(150,200),c:_r(0,70)};
+    window._g = t => {
+      if(!_autoReset && ((t===1 && _c) || (t===2 && _d))) {
+        const toast = document.getElementById("toast");
+        toast.style.display = "block";
+        setTimeout(() => toast.style.display = "none", 3000);
+        return;
+      }
+      let o = (t===1) ? _a : _b;
+      let dev = (t===1) ? d1.value : d2.value;
+      let out = (t===1) ? out1 : out2;
 
-  let fireSize = o==="Android" ? (dt.l > 150 ? _r(45,65) : _r(40,55)) : (dt.l > 160 ? _r(45,70) : _r(35,50));
-  let dpiVal = _r(370,500);
-  let dpi = o==="Android" ? (dt.l >= 180 && fireSize >= 55 ? _r(370,450) : dpiVal) : "Mua File Nabati Để Tốt Hơn";
+      if(!o || !dev || dev.length < 3) { alert("Vui lòng nhập đầy đủ!"); return; }
 
-  let fps = "FPS Trung Bình";
-  let avgSens = (dt.l + dt.r + dt.x2 + dt.x4) / 4;
-  if(avgSens > 175 && fireSize > 55) fps = "FPS Thấp (Nếu Thiết Bị Lag)";
-  if(avgSens > 190) fps = "FPS Cao";
-  if(avgSens < 130) fps = "FPS Thử Nghiệm (120 FPS)";
+      let dt = {
+        l: _r(160,200), r: _r(100,180), x2: _r(100,170), 
+        x4: _r(150,190), s: _r(150,200), c: _r(0,50)
+      };
+      const nm = {l:"Nhìn Xung Quanh", r:"Hồng Tâm", x2:"X2", x4:"X4", s:"Súng Ngắm", c:"Camera"};
 
-  const nm={l:"Nhìn Xung Quanh", r:"Ống Ngắm Hồng Tâm", x2:"Ống Ngắm X2", x4:"Ống Ngắm X4", s:"Ống Ngắm Súng Ngắm", c:"Camera Nhìn Xung Quanh"};
+      let h = `<div class="res-head"><h3>${dev}</h3><button class="btn-rs" onclick="_rs(${t})">Làm mới</button></div>`;
+      for(let k in dt){
+        h += `<p style="font-size:12px">${nm[k]}: ${dt[k]}</p><div class="slider"><div class="bar" style="width:${dt[k]/2}%"></div></div>`;
+      }
+      h += `<p style="text-align:center; color:var(--accent2)"><b>Nút bắn:</b> ${_r(40,60)}% | <b>DPI:</b> ${o==="Android"?_r(400,600):"Mặc định"}</p>`;
+      
+      out.innerHTML = h;
+      t===1 ? _c=1 : _d=1;
+    };
 
-  let h=`<div class="res-head">
-            <h3>${o} - ${dev}</h3> 
-            <div class="res-btns">
-              <div class="loop-toggle ${_autoReset?'on':''}" onclick="_toggleLoop(this)" title="Tự động làm mới">
-                <div class="loop-icon"></div>
-              </div>
-              <button class="btn-rs" onclick="_rs(${t})">Tạo Lại</button>
-            </div>
-         </div>`;
-  for(let k in dt){
-    h+=`<p style="font-size:13px">${nm[k]}: ${dt[k]}</p><div class="slider"><div class="bar" style="width:${dt[k]/2}%"></div></div>`;
-  }
-  h+=`<p><b>Nút bắn:</b> ${fireSize}% | <b>DPI:</b> ${dpi}</p>`;
-  h+=`<p style="margin-top:5px; color:var(--accent)"><b>FPS (Tùy Theo Mức Độ):</b> ${fps}</p>`;
-  out.innerHTML=h;
-  t===1?_c=1:_d=1;
-};
+    window._rs = t => {
+      if(t===1) { out1.innerHTML=""; _c=0; }
+      else { out2.innerHTML=""; _d=0; }
+    };
 
-window._toggleLoop = (el) => {
-  _autoReset = !_autoReset;
-  el.classList.toggle("on");
-};
-
-window._rs=t=>{
-  if(t===1){ out1.innerHTML=""; _c=0; }
-  else { out2.innerHTML=""; _d=0; }
-};
-
-window._u=()=>{ if(confirm("Mở Khóa Độ Nhạy FF MAX?"))lock.style.display="none"; };
-window._t=()=>document.body.classList.toggle("light");
-
-particlesJS("particles-js", {
-  "particles": {
-    "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-    "color": { "value": "#888888" },
-    "shape": { "type": "circle" },
-    "opacity": { "value": 0.5, "random": false },
-    "size": { "value": 3, "random": true },
-    "line_linked": { "enable": true, "distance": 150, "color": "#444444", "opacity": 0.4, "width": 1 },
-    "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
-  },
-  "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
-  "retina_detect": true
-});
+    window._u = () => { if(confirm("Xác nhận mở khóa FF MAX?")) lock.style.display="none"; };
 })();
 </script>
 </body>
